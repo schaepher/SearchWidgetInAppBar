@@ -18,10 +18,14 @@ public class SearchableActivity extends AppCompatActivity {
         mTvWord = (TextView) findViewById(R.id.tv_word);
 
         Intent intent = getIntent();
+
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            String text = getString(R.string.notice) + query;
-            mTvWord.setText(text);
+            mTvWord.append(intent.getStringExtra(SearchManager.QUERY));
+        } else if (Intent.ACTION_VIEW.equals((intent.getAction()))){
+            mTvWord.append(intent.getDataString());
+        } else {
+            mTvWord.setText(R.string.word_not_found);
         }
+
     }
 }
